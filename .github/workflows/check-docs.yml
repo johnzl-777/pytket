@@ -37,6 +37,15 @@ jobs:
     - name: install additional prerequisites for notebooks
       run: |
         python -m pip install jupyter openfermion
+    - name: install dotnet SDK and iqsharp
+      run: |
+        curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+        sudo apt-add-repository https://packages.microsoft.com/ubuntu/20.04/prod
+        sudo apt-get install dotnet-sdk-3.1
+        echo "~/.dotnet/tools" >> $GITHUB_PATH
+        # Note: iqsharp version 0.14 suffers from a performance issue that can freeze the CI.
+        dotnet tool install --version 0.13.20102604 -g Microsoft.Quantum.IQSharp
+        dotnet iqsharp install --user
     - name: test example notebooks
       run: |
         # Test the notebooks that don't need any backend credentials
