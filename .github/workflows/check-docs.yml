@@ -38,7 +38,7 @@ jobs:
       run: |
         python -m pip install jupyter openfermion
     - name: test example notebooks
-      run:
+      run: |
         # Test the notebooks that don't need any backend credentials
         for name in \
           ansatz_sequence_example \
